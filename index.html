@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ubereatsguy — LEGO MOCs, cars, Roblox shooters, and Farming Simulator 25." />
+  <title>Ubereatsguy — Personal Site</title>
+  <style>
+    :root{
+      --bg:#080a0d;
+      --panel:#10141a;
+      --panel-2:#141a21;
+      --text:#f4f6f8;
+      --muted:#9da7b3;
+      --line:rgba(255,255,255,.09);
+      --accent:#d7ff3f;
+      --accent-2:#9eff00;
+      --shadow:0 22px 70px rgba(0,0,0,.45);
+      --radius:24px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 75% 5%, rgba(215,255,63,.10), transparent 27%),
+        radial-gradient(circle at 10% 35%, rgba(75,107,255,.07), transparent 24%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .container{width:min(var(--max),calc(100% - 40px));margin:auto}
+
+    .noise{
+      position:fixed;inset:0;pointer-events:none;opacity:.028;z-index:50;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    .nav{
+      position:fixed;top:0;left:0;right:0;z-index:40;
+      backdrop-filter:blur(16px);
+      background:rgba(8,10,13,.68);
+      border-bottom:1px solid transparent;
+      transition:.25s ease;
+    }
+    .nav.scrolled{border-bottom-color:var(--line);background:rgba(8,10,13,.9)}
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      min-height:74px;
+    }
+    .brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.03em}
+    .brand-mark{
+      width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+      background:var(--accent);color:#0b0d08;font-weight:950;font-size:.85rem;
+      box-shadow:0 0 30px rgba(215,255,63,.2);
+    }
+    .nav-links{display:flex;gap:28px;color:#c3cad3;font-size:.94rem}
+    .nav-links a{transition:.2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{
+      border:1px solid var(--line);padding:10px 15px;border-radius:13px;
+      color:var(--text);font-weight:700;font-size:.9rem;
+      transition:.2s;
+    }
+    .nav-cta:hover{border-color:rgba(215,255,63,.45);transform:translateY(-1px)}
+
+    .hero{
+      min-height:100vh;display:grid;align-items:center;padding:130px 0 70px;position:relative;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:70px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;color:var(--accent);
+      text-transform:uppercase;letter-spacing:.18em;font-weight:800;font-size:.76rem;margin-bottom:20px;
+    }
+    .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+    h1{
+      font-size:clamp(3.6rem,8vw,7.4rem);line-height:.88;letter-spacing:-.075em;
+      max-width:850px;
+    }
+    h1 span{color:var(--accent)}
+    .hero-copy{
+      margin-top:28px;color:var(--muted);font-size:1.08rem;max-width:640px;
+    }
+    .hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+    .btn{
+      display:inline-flex;align-items:center;gap:9px;padding:13px 17px;border-radius:14px;
+      border:1px solid var(--line);font-weight:800;transition:.2s;cursor:pointer;
+    }
+    .btn.primary{background:var(--accent);color:#0b0d08;border-color:var(--accent)}
+    .btn.primary:hover{background:#e3ff78;transform:translateY(-2px)}
+    .btn.ghost:hover{border-color:rgba(215,255,63,.4);transform:translateY(-2px)}
+    .hero-note{margin-top:24px;color:#717c89;font-size:.88rem}
+
+    .hero-visual{
+      position:relative;min-height:500px;display:grid;place-items:center;
+    }
+    .garage-card{
+      width:min(100%,470px);aspect-ratio:1/1.05;border:1px solid var(--line);border-radius:34px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.018)),
+        radial-gradient(circle at 40% 30%, rgba(215,255,63,.13), transparent 35%),
+        #0c1015;
+      box-shadow:var(--shadow);position:relative;overflow:hidden;transform:rotate(2.5deg);
+    }
+    .garage-card::before{
+      content:"";position:absolute;inset:20px;border:1px solid rgba(255,255,255,.06);border-radius:24px;
+    }
+    .grid-lines{
+      position:absolute;inset:0;opacity:.22;
+      background:
+       linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+       linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
+    }
+    .visual-top{
+      position:absolute;top:40px;left:40px;right:40px;display:flex;justify-content:space-between;
+      color:#7c8793;font-size:.77rem;text-transform:uppercase;letter-spacing:.16em
+    }
+    .visual-center{position:absolute;inset:0;display:grid;place-items:center}
+    .monogram{
+      width:210px;height:210px;border-radius:48px;border:1px solid rgba(215,255,63,.3);
+      display:grid;place-items:center;position:relative;
+      background:rgba(215,255,63,.035);
+      box-shadow:0 0 90px rgba(215,255,63,.08);
+    }
+    .monogram::after{content:"";position:absolute;width:125px;height:125px;border:1px solid rgba(215,255,63,.23);border-radius:34px}
+    .monogram strong{font-size:4.5rem;letter-spacing:-.08em;color:var(--accent);z-index:2}
+    .visual-bottom{position:absolute;bottom:36px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:end}
+    .visual-label{font-size:1.05rem;font-weight:800}
+    .visual-small{font-size:.75rem;color:#7d8895;text-transform:uppercase;letter-spacing:.14em;text-align:right}
+
+    .section{padding:105px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:38px}
+    .section-kicker{color:var(--accent);font-size:.76rem;text-transform:uppercase;letter-spacing:.18em;font-weight:850}
+    h2{font-size:clamp(2.4rem,5vw,4.4rem);line-height:.95;letter-spacing:-.06em;margin-top:8px}
+    .section-intro{max-width:470px;color:var(--muted)}
+
+    .about{
+      display:grid;grid-template-columns:.8fr 1.2fr;gap:30px
+    }
+    .about-card,.interest-card,.game-card,.footer-box{
+      border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+      border-radius:var(--radius);
+    }
+    .about-card{padding:31px;min-height:240px}
+    .about-card.big{grid-row:span 2;min-height:510px;display:flex;flex-direction:column;justify-content:space-between}
+    .number{font-size:.75rem;color:#65707d;text-transform:uppercase;letter-spacing:.16em}
+    .about-title{font-size:1.75rem;font-weight:820;letter-spacing:-.04em;margin-top:18px}
+    .about-text{color:var(--muted);margin-top:12px;max-width:530px}
+    .about-quote{
+      margin-top:35px;padding:18px 0 0;border-top:1px solid var(--line);
+      font-size:1rem;font-weight:700;color:#dfe5eb
+    }
+
+    .interests{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .interest-card{padding:24px;min-height:240px;position:relative;overflow:hidden;transition:.25s}
+    .interest-card:hover{transform:translateY(-5px);border-color:rgba(215,255,63,.22)}
+    .icon{
+      width:45px;height:45px;border-radius:14px;border:1px solid var(--line);
+      display:grid;place-items:center;margin-bottom:44px;font-size:1.2rem;background:#0c1015
+    }
+    .interest-card h3{font-size:1.27rem;letter-spacing:-.03em}
+    .interest-card p{color:var(--muted);font-size:.94rem;margin-top:8px}
+    .corner{
+      position:absolute;right:-28px;bottom:-36px;font-size:8rem;line-height:1;color:rgba(255,255,255,.025);
+      font-weight:950;letter-spacing:-.1em
+    }
+
+    .games-wrap{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch
+    }
+    .games-list{display:grid;gap:12px}
+    .game-card{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;
+      transition:.2s
+    }
+    .game-card:hover{transform:translateX(4px);border-color:rgba(215,255,63,.23)}
+    .game-main{display:flex;align-items:center;gap:15px}
+    .game-badge{
+      width:44px;height:44px;border-radius:13px;background:#0b0f13;border:1px solid var(--line);
+      display:grid;place-items:center;font-weight:900;font-size:.8rem
+    }
+    .game-card h3{font-size:1rem;letter-spacing:-.02em}
+    .game-card p{font-size:.8rem;color:#73808e;margin-top:2px}
+    .pill{padding:7px 10px;border-radius:999px;background:rgba(215,255,63,.08);color:var(--accent);font-size:.72rem;font-weight:800}
+    .game-feature{
+      position:relative;padding:30px;border-radius:var(--radius);overflow:hidden;min-height:100%;
+      border:1px solid rgba(215,255,63,.18);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(215,255,63,.14), transparent 35%),
+        linear-gradient(145deg,#121922,#0b0f13);
+    }
+    .game-feature .big-word{font-size:clamp(3.5rem,7vw,6rem);line-height:.78;font-weight:950;letter-spacing:-.08em;color:rgba(255,255,255,.06);position:absolute;right:22px;bottom:18px}
+    .game-feature h3{font-size:2rem;letter-spacing:-.05em}
+    .game-feature p{color:var(--muted);margin-top:10px;max-width:450px}
+    .game-feature .budget{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-size:.79rem;color:#c7ced5}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 15px rgba(215,255,63,.6)}
+
+    .garage{
+      margin-top:22px;border:1px solid var(--line);border-radius:32px;overflow:hidden;
+      background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    }
+    .garage-top{display:grid;grid-template-columns:1fr 1fr}
+    .garage-panel{min-height:330px;padding:34px;position:relative}
+    .garage-panel + .garage-panel{border-left:1px solid var(--line)}
+    .garage-panel::after{
+      content:"";position:absolute;right:24px;bottom:-12px;width:160px;height:160px;border-radius:50%;
+      border:1px solid rgba(255,255,255,.06)
+    }
+    .garage-panel h3{font-size:2.2rem;letter-spacing:-.05em}
+    .garage-panel p{color:var(--muted);max-width:500px;margin-top:12px}
+    .specs{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+    .spec{padding:9px 11px;border:1px solid var(--line);border-radius:999px;color:#b8c0c8;font-size:.75rem}
+    .garage-strip{
+      padding:16px 24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;
+      align-items:center;color:#77828e;font-size:.76rem;text-transform:uppercase;letter-spacing:.13em
+    }
+
+    .footer{padding:30px 0 65px}
+    .footer-box{
+      padding:32px;display:flex;justify-content:space-between;align-items:center;gap:20px
+    }
+    .footer-title{font-size:1.7rem;font-weight:850;letter-spacing:-.04em}
+    .footer-copy{color:var(--muted);font-size:.9rem;margin-top:4px}
+    .footer-mark{color:var(--accent);font-weight:900;font-size:.83rem;letter-spacing:.12em;text-transform:uppercase}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    @media (max-width: 900px){
+      .nav-links{display:none}
+      .hero-grid,.about,.games-wrap{grid-template-columns:1fr}
+      .hero-visual{min-height:420px}
+      .interests{grid-template-columns:1fr}
+      .about-card.big{min-height:340px}
+      .garage-top{grid-template-columns:1fr}
+      .garage-panel + .garage-panel{border-left:0;border-top:1px solid var(--line)}
+      .section{padding:80px 0}
+    }
+
+    @media (max-width: 560px){
+      .container{width:min(var(--max),calc(100% - 26px))}
+      .nav-inner{min-height:66px}
+      .nav-cta{display:none}
+      .hero{padding-top:105px}
+      h1{font-size:4.1rem}
+      .garage-card{width:95%}
+      .section-head{display:block}
+      .section-intro{margin-top:17px}
+      .garage-panel{padding:25px}
+      .footer-box{padding:24px;display:block}
+      .footer-mark{margin-top:18px}
+      .game-card{padding:15px}
+      .pill{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">UG</span>
+        <span>Ubereatsgu7</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#interests">Interests</a>
+        <a href="#games">Games</a>
+        <a href="#garage">Garage</a>
+      </nav>
+      <a class="nav-cta" href="#about">19 / still figuring it out</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">Personal site · Ubereatsguy</div>
+          <h1>Built from<br><span>LEGO, cars</span><br>& games.</h1>
+          <p class="hero-copy">
+            Yo, I’m <strong>Ubereatsgu7</strong> — 19, into LEGO MOCs, cars, Roblox shooters,
+            Farming Simulator 25, and pretty much anything that makes a desk setup more fun.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#interests">See what I’m into <span>↘</span></a>
+            <a class="btn ghost" href="#games">My games <span>↘</span></a>
+          </div>
+          <div class="hero-note">No billionaire garage. No insane MOC collection. Just things I actually like.</div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="garage-card">
+            <div class="grid-lines"></div>
+            <div class="visual-top">
+              <span>Ubereatsgu7</span>
+              <span>01 — 04</span>
+            </div>
+            <div class="visual-center">
+              <div class="monogram"><strong>UG</strong></div>
+            </div>
+            <div class="visual-bottom">
+              <div class="visual-label">Personal garage / workspace</div>
+              <div class="visual-small">LEGO · CARS<br>GAMES · FS25</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">01 / About</div>
+            <h2>A bit about me.</h2>
+          </div>
+          <p class="section-intro">Mostly hobbies, probably too much time spent at my desk, and a healthy amount of random opinions about cars.</p>
+        </div>
+
+        <div class="about">
+          <article class="about-card big reveal">
+            <div>
+              <div class="number">01 — Who I am</div>
+              <div class="about-title">Ubereatsguy / Ubereatsgu7</div>
+              <p class="about-text">
+                I’m 19 and I spend a lot of my free time building stuff, playing games and getting way too interested
+                in cars. My office is basically my hobby zone, so LEGO parts, ideas and whatever I’m currently into
+                tend to end up there.
+              </p>
+            </div>
+            <div class="about-quote">
+              “I’d rather like a car because it’s genuinely cool than because the internet says it’s cool.”
+            </div>
+          </article>
+
+          <article class="about-card reveal">
+            <div class="number">02 — LEGO</div>
+            <div class="about-title">MOCs & messing around</div>
+            <p class="about-text">
+              I like making LEGO MOCs. I’d call myself mediocre at it — nothing museum-worthy — but building them is fun,
+              and that’s the main point.
+            </p>
+          </article>
+
+          <article class="about-card reveal">
+            <div class="number">03 — Workspace</div>
+            <div class="about-title">The office is the hobby zone.</div>
+            <p class="about-text">
+              Most of the LEGO stuff and random projects end up around my desk. Basically: office by day, workshop by accident.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="interests">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">02 / Interests</div>
+            <h2>The things I’m into.</h2>
+          </div>
+          <p class="section-intro">A pretty simple mix: building, cars, games, and occasionally pretending I have unlimited free time.</p>
+        </div>
+
+        <div class="interests">
+          <article class="interest-card reveal">
+            <div class="icon">▦</div>
+            <h3>LEGO MOCs</h3>
+            <p>Custom builds, messing with parts, rebuilding things, and making stuff that looked better in my head.</p>
+            <div class="corner">MOC</div>
+          </article>
+
+          <article class="interest-card reveal">
+            <div class="icon">◉</div>
+            <h3>Cars</h3>
+            <p>I think a lot of cars deserve more attention. I’m more into what makes a car interesting than internet hype.</p>
+            <div class="corner">CAR</div>
+          </article>
+
+          <article class="interest-card reveal">
+            <div class="icon">⌁</div>
+            <h3>Gaming</h3>
+            <p>Mostly shooters on Roblox, plus Farming Simulator 25 when I’m in the mood for something slower.</p>
+            <div class="corner">PLAY</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="games">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">03 / Games</div>
+            <h2>What I play.</h2>
+          </div>
+          <p class="section-intro">My Roblox rotation is heavily shooter-focused, with FS25 occupying a completely different part of the brain.</p>
+        </div>
+
+        <div class="games-wrap">
+          <div class="games-list">
+            <article class="game-card reveal">
+              <div class="game-main">
+                <div class="game-badge">AR2</div>
+                <div>
+                  <h3>Apocalypse Rising 2</h3>
+                  <p>Roblox · shooter / survival</p>
+                </div>
+              </div>
+              <span class="pill">MAIN</span>
+            </article>
+
+            <article class="game-card reveal">
+              <div class="game-main">
+                <div class="game-badge">BRM5</div>
+                <div>
+                  <h3>Black Hawk Rescue Mission 5</h3>
+                  <p>Roblox · tactical shooter</p>
+                </div>
+              </div>
+              <span class="pill">PLAY</span>
+            </article>
+
+            <article class="game-card reveal">
+              <div class="game-main">
+                <div class="game-badge">TTK</div>
+                <div>
+                  <h3>TTK Testing</h3>
+                  <p>Roblox · shooter</p>
+                </div>
+              </div>
+              <span class="pill">PLAY</span>
+            </article>
+
+            <article class="game-card reveal">
+              <div class="game-main">
+                <div class="game-badge">APX</div>
+                <div>
+                  <h3>Project Apex</h3>
+                  <p>Roblox · shooter</p>
+                </div>
+              </div>
+              <span class="pill">PLAY</span>
+            </article>
+
+            <article class="game-card reveal">
+              <div class="game-main">
+                <div class="game-badge">FS</div>
+                <div>
+                  <h3>Farming Simulator 25</h3>
+                  <p>PC · farming / simulation</p>
+                </div>
+              </div>
+              <span class="pill">CHILL</span>
+            </article>
+          </div>
+
+          <article class="game-feature reveal">
+            <div class="section-kicker">Next up</div>
+            <h3>Forza Horizon 6</h3>
+            <p>
+              Definitely something I want to play. The only problem is the very advanced technology known as
+              “my budget right now.”
+            </p>
+            <div class="budget"><span class="dot"></span> Wishlist status: waiting for the right moment</div>
+            <div class="big-word">FORZA</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="garage">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">04 / Garage</div>
+            <h2>Cars, without the hype.</h2>
+          </div>
+          <p class="section-intro">I like cars a lot. Not necessarily the cars everyone keeps talking about — just the ones that actually catch my attention.</p>
+        </div>
+
+        <div class="garage reveal">
+          <div class="garage-top">
+            <article class="garage-panel">
+              <div class="number">Car philosophy</div>
+              <h3>Underrated & interesting.</h3>
+              <p>
+                I’m not really into treating a car as automatically amazing just because it has a huge fanbase.
+                The engineering, design, sound, weird details and overall character matter more to me.
+              </p>
+              <div class="specs">
+                <span class="spec">Interesting > hyped</span>
+                <span class="spec">Design</span>
+                <span class="spec">Character</span>
+              </div>
+            </article>
+
+            <article class="garage-panel">
+              <div class="number">LEGO garage</div>
+              <h3>My office is the workshop.</h3>
+              <p>
+                Cars and LEGO overlap pretty nicely, especially when a random idea becomes a MOC and suddenly takes
+                over half the desk.
+              </p>
+              <div class="specs">
+                <span class="spec">MOCs</span>
+                <span class="spec">Desk setup</span>
+                <span class="spec">Trial & error</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="garage-strip">
+            <span>Ubereatsgu7 · personal site</span>
+            <span>made around the stuff I actually like</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-box reveal">
+        <div>
+          <div class="footer-title">That’s basically me.</div>
+          <div class="footer-copy">LEGO on the desk. Cars on the brain. Games whenever.</div>
+        </div>
+        <div class="footer-mark">Ubereatsgu7 / 2026</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 12);
+    }, {passive:true});
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.12});
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
